@@ -168,16 +168,8 @@ if __name__ == '__main__':
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
-    bh = "841785"#get_block_height()
+    bh = get_block_height()
     bh_int = int(bh)
-    image_path, inscription_number, content_length = get_content_path(bh)
-    formatted_blockheight = "{:,}".format(bh_int)
-    formatted_number = "{:,}".format(int(inscription_number))
-    formatted_size = format_size(content_length)
-    send_tweet(client, api,
-               'Block ' + formatted_blockheight + '\nInscription ' + formatted_number + '\nSize ' + formatted_size + '\n\nSee more inscriptions from this block at https://vermilion.place/block/' + bh,
-               image_path)
-    time.sleep(60)
     while True:
         new_bh = get_block_height()
         new_bh_int = int(new_bh)
