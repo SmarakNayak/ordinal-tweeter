@@ -159,7 +159,7 @@ def send_tweet(client, api, text, image_path):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    chromedriver_autoinstaller.install()
+    # chromedriver_autoinstaller.install()
     client = tweepy.Client(
         consumer_key=consumer_key, consumer_secret=consumer_secret,
         access_token=access_token, access_token_secret=access_token_secret
