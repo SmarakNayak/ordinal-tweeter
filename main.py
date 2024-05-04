@@ -5,12 +5,18 @@ from selenium import webdriver
 import chromedriver_autoinstaller
 from PIL import Image
 from io import BytesIO
+import yaml
 
-bearer_token = ""
-consumer_key = ""
-consumer_secret = ""
-access_token = ""
-access_token_secret = ""
+config_path = os.getenv("TWITTER_CONFIG_PATH")
+if config_path is None:
+    config_path = "twitter.yaml"
+
+config = yaml.safe_load(open(config_path))
+bearer_token = config["bearer_token"]
+consumer_key = config["consumer_key"]
+consumer_secret = config["consumer_secret"]
+access_token = config["access_token"]
+access_token_secret = config["access_token_secret"]
 
 
 def format_size(size_in_bytes):
