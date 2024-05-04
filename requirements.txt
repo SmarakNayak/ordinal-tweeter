@@ -2,3 +2,4 @@ Pillow
 tweepy
 selenium
 chromedriver-autoinstaller
+PyYAML
