@@ -6,6 +6,7 @@ import chromedriver_autoinstaller
 from PIL import Image
 from io import BytesIO
 import yaml
+import os
 
 config_path = os.getenv("TWITTER_CONFIG_PATH")
 if config_path is None:
