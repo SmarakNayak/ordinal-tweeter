@@ -34,7 +34,14 @@ jobs:
 
       - name: Check out the new code from Github
         run: ssh staging 'git -C ordinal-tweeter fetch && git -C ordinal-tweeter reset --hard origin/main || git clone git@github.com:SmarakNayak/ordinal-tweeter.git'
-        
+
+      - name: Create Ord config file
+        run: ssh staging 'printf "%s\n" "${{format('bearer_token{0} ', ':')}}${{secrets.BEARER_TOKEN}}"
+                                        "${{format('consumer_key{0} ', ':')}}${{secrets.CONSUMER_KEY}}"
+                                        "${{format('consumer_secret{0} ', ':')}}${{secrets.CONSUMER_SECRET}}"
+                                        "${{format('access_token{0} ', ':')}}${{secrets.ACCESS_TOKEN}}"
+                                        "${{format('access_token_secret{0} ', ':')}}${{secrets.ACCESS_TOKEN_SECRET}}" > ~/twitter.yaml'
+      
       - name: Get python dependencies
         run: |
           ssh staging 'sudo apt-get install -y python3-venv'
@@ -42,7 +49,7 @@ jobs:
           ssh staging 'cd ordinal-tweeter; source venv/bin/activate; python3 -m pip install -r requirements.txt'
           
       - name: Set up systemd services
-        run: ssh staging 'sudo cp Vermilion/systemd/tweeter.service /etc/systemd/system/tweeter.service; sudo systemctl daemon-reload;'
+        run: ssh staging 'sudo cp ordinal-tweeter/tweeter.service /etc/systemd/system/tweeter.service; sudo systemctl daemon-reload;'
       
       - name: Start the app
         if: ${{ always() }}
